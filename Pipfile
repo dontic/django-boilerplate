@@ -5,6 +5,21 @@ name = "pypi"
 
 [packages]
 django = "*"
+python-dotenv = "*"
+django-solo = "*"
+celery = "*"
+dj-rest-auth = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
+django-allauth = "*"
+redis = "*"
+django-celery-beat = "*"
+psycopg2 = "*"
+django-cors-headers = "*"
+gunicorn = "*"
+whitenoise = "*"
+concurrent-log-handler = "*"
 
 [dev-packages]
 
