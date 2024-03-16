@@ -39,3 +39,21 @@ pipenv shell
 ```
 python manage.py runserver
 ```
+
+# Reset the database
+To reset the database just go into the Postgres docker container terminal if you have Docker desktop, or by running `docker exec -it <container-id> /bin/sh`
+
+1. Connect to Postgres
+```
+psql -U django -d postgres
+```
+
+2. Remove the `django` database
+```
+DROP DATABASE django;
+```
+
+3. Recreate the `django` database
+```
+CREATE DATABASE django;
+```
