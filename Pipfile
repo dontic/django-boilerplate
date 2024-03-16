@@ -21,6 +21,7 @@ gunicorn = "*"
 whitenoise = "*"
 concurrent-log-handler = "*"
 discord-webhook = "*"
+sendgrid = "*"
 
 [dev-packages]
 
