@@ -164,3 +164,6 @@ postgresdata/
 
 # data
 data/
+
+# VSCode
+.vscode/
