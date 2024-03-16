@@ -40,6 +40,8 @@ DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
 LOGGING_DIR = DATA_DIR / "logs"
 LOGGING_DIR.mkdir(exist_ok=True)
 
+container_id = os.getenv("HOSTNAME", "generic")
+
 LOGGING_CONFIG = None  # Avoid Django logging setup
 LOGGING = {
     "version": 1,
@@ -47,7 +49,7 @@ LOGGING = {
     "formatters": {
         "default": {"format": "%(asctime)s - %(levelname)s - %(message)s"},
         "verbose": {
-            "format": "%(asctime)s - %(levelname)s - %(module)s - %(message)s",
+            "format": f"%(asctime)s - {container_id} - %(levelname)s - %(module)s - %(message)s",
         },
     },
     "handlers": {
