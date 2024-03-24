@@ -2,8 +2,9 @@
 # https://github.com/sendgrid/sendgrid-python
 import json
 import os
+from celery import shared_task
 from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+from sendgrid.helpers.mail import *
 
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
@@ -32,7 +33,37 @@ class Sendgrid:
 
         return body_json
 
-    def send_email(self, to_email, subject, html_content, context=None):
+    def send_template_email(self, to_email, template_id, dynamic_template_data):
+        """
+        Sends an email using a dynamic template
+
+        Args:
+            to_email (str): The email address of the recipient
+            template_id (str): The ID of the dynamic template
+            dynamic_template_data (dict): The data to be used in the dynamic template
+
+        Returns:
+            bool: True if the email was sent successfully, False otherwise
+
+        Docs: https://docs.sendgrid.com/api-reference/mail-send/mail-send
+        """
+
+        message = Mail(
+            from_email=self.from_email,
+            to_emails=to_email,
+        )
+
+        message.template_id = template_id
+        message.dynamic_template_data = dynamic_template_data
+
+        try:
+            response = self.sg.send(message)
+            return True
+        except Exception as e:
+            print(e)
+            return False
+
+    def send_email(self, to_email, subject, html_content):
         message = Mail(
             from_email=self.from_email,
             to_emails=to_email,
@@ -47,5 +78,5 @@ class Sendgrid:
             print(response.headers)
             return True
         except Exception as e:
-            print(e.message)
+            print(e)
             return False

@@ -3,14 +3,24 @@ from discord_webhook import DiscordWebhook
 import logging
 
 # Initialize logger
-log = logging.getLogger("myproject")
+log = logging.getLogger(__name__)
 
 
-DISCORD_INFO_WEBHOOK_URL = os.getenv("DISCORD_INFO_WEBHOOK_URL", None)
-DISCORD_ERROR_WEBHOOK_URL = os.getenv("DISCORD_ERROR_WEBHOOK_URL", None)
+DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL", None)
 
 
 class Discord:
+    """
+    Usage:
+    discord = Discord()
+    discord.log("Title", "Description")
+
+    You can set multiple webhooks for different purposes:
+    def error(self, title, description=""):
+        self._log(title, description, self.DISCORD_ERROR_WEBHOOK_URL)
+
+    """
+
     def __init__(self):
         pass
 
@@ -30,8 +40,8 @@ class Discord:
             log.error("An error occurred while notifying Discord:")
             log.error(e)
 
-    def info(self, title, description=""):
-        self._log(title, description, DISCORD_INFO_WEBHOOK_URL)
+    def log(self, title, description=""):
+        self._log(title, description, DISCORD_WEBHOOK_URL)
 
-    def error(self, title, description=""):
-        self._log(title, description, self.DISCORD_ERROR_WEBHOOK_URL)
+    # def error(self, title, description=""):
+    #     self._log(title, description, self.DISCORD_ERROR_WEBHOOK_URL)
