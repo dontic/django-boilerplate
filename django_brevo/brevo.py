@@ -14,7 +14,7 @@ from sib_api_v3_sdk.api.lists_api import ListsApi
 BREVO_API_KEY = os.getenv("BREVO_API_KEY")
 
 # Initialize the logger
-logger = logging.getLogger(__name__)
+log = logging.getLogger("brevo")
 
 
 class Brevo:
@@ -35,7 +35,13 @@ class Brevo:
     # ---------------------------------------------------------------------------- #
     #                                   CONTACTS                                   #
     # ---------------------------------------------------------------------------- #
-    def create_contact(self, email, attributes={}, list_ids=[]):
+    def create_contact(
+        self,
+        email: str,
+        attributes: dict = {},
+        list_ids: list = [],
+        update_enabled: bool = False,
+    ):
         """
         https://developers.brevo.com/reference/createcontact
         Create a new contact in Brevo
@@ -45,6 +51,7 @@ class Brevo:
             attributes (dict): The attributes of the contact
                 i.e.: {"FIRSTNAME":"Elly", "LASTNAME":"Roger"}
             list_ids (list): The list ids to add the contact to
+            update_enabled (bool): Whether to update the contact if it already exists
 
         Returns:
             response if successful
@@ -52,7 +59,10 @@ class Brevo:
         """
         # Create a contact object
         contact_to_create = sib_api_v3_sdk.CreateContact(
-            email=email, attributes=attributes, list_ids=list_ids
+            email=email,
+            attributes=attributes,
+            list_ids=list_ids,
+            update_enabled=update_enabled,
         )
 
         # Create a new contact
