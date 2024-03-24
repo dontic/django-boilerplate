@@ -149,17 +149,27 @@ INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
-    "django.contrib.sessions",
     "django.contrib.messages",
+    "django.contrib.sessions",
+    "django.contrib.sites",
     "django.contrib.staticfiles",
+    # ----------------------------------- CORS ----------------------------------- #
     "corsheaders",  # Django CORS Headers
+    # ----------------------------------- REST ----------------------------------- #
     "rest_framework",  # Django REST Framework
+    # ------------------------------ AUTHENTICATION ------------------------------ #
     "dj_rest_auth",  # Django REST Framework Authentication
+    "dj_rest_auth.registration",  # Django REST Framework Registration
     "allauth",  # Django AllAuth
     "allauth.account",  # Django AllAuth Account
     "allauth.socialaccount",  # Django AllAuth Social Account
     "allauth.socialaccount.providers.google",  # Django AllAuth Google Provider
+    "authentication",  # Custom authentication app
+    # ---------------------------------- CELERY ---------------------------------- #
     "django_celery_beat",  # Celery beat
+    # ----------------------------------- BREVO ---------------------------------- #
+    "django_brevo",  # Brevo
+    # ------------------------------- CONFIGURATION ------------------------------ #
     "solo",  # Django Solo
     # Custom apps
 ]
@@ -196,6 +206,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                # `allauth` needs this from django
+                "django.template.context_processors.request",
             ],
         },
     },
@@ -277,6 +289,8 @@ REST_FRAMEWORK = {
 #                                AUTHENTICATION                                #
 # ---------------------------------------------------------------------------- #
 
+AUTH_USER_MODEL = "authentication.User"
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -295,25 +309,52 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# --------------------------- dj-rest-auth settings -------------------------- #
-# See defaults in https://dj-rest-auth.readthedocs.io/en/latest/configuration.html
-REST_AUTH = {
-    "TOKEN_MODEL": None,
-}
 
-# All auth settings
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_UNIQUE_EMAIL = True
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by email
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+# ----------------------------- allauth settings ----------------------------- #
+# https://docs.allauth.org/en/latest/index.html
+
+ACCOUNT_AUTHENTICATION_METHOD = "email"  # username, email or username_email
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True  # Needs to be True to use email as the auth method
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # "none", "optional", "mandatory"
+# ACCOUNT_EMAIL_NOTIFICATIONS = True  # This does not work yet with dj-rest-auth, it needs to be handled with signals
 SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_STORE_TOKENS = True  # Needed to access Google APIs
+ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS = (
+    False  # Do not allow unknown accounts to reset password
+)
+# Override the default adapter to use a custom email module
+ACCOUNT_ADAPTER = "authentication.adapter.CustomAccountAdapter"
+# An email verification URL that the client will pick up.
+CUSTOM_ACCOUNT_CONFIRM_EMAIL_URL = "/verifyemail/?key={0}"
 
-# Providers
+
+# allauth providers
 # https://docs.allauth.org/en/latest/socialaccount/provider_configuration.html
 SOCIALACCOUNT_PROVIDERS = {}
+
+
+# --------------------------- dj-rest-auth settings -------------------------- #
+# See defaults in https://dj-rest-auth.readthedocs.io/en/latest/configuration.html
+REST_AUTH = {
+    "TOKEN_MODEL": None,  # Use sessions instead of tokens
+    "SESSION_LOGIN": True,  # Use sessions instead of tokens
+    # "LOGIN_SERIALIZER": "authentication.serializers.LoginSerializer",
+    "REGISTER_SERIALIZER": "authentication.serializers.RegisterSerializer",
+    "OLD_PASSWORD_FIELD_ENABLED": True,
+}
+
+SITE_ID = 1
 
 # ---------------------------------------------------------------------------- #
 #                                    CELERY                                    #
@@ -329,3 +370,18 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_SERIALIZER = "json"
 
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+
+
+# ---------------------------------------------------------------------------- #
+#                                   SENDGRID                                   #
+# ---------------------------------------------------------------------------- #
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", "")
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_HOST_USER = "apikey"  # this is exactly the value 'apikey'
+DEFAULT_FROM_EMAIL = "no-reply@fisy.es"  # this is the verified email address
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
