@@ -169,6 +169,8 @@ INSTALLED_APPS = [
     "django_celery_beat",  # Celery beat
     # ----------------------------------- BREVO ---------------------------------- #
     "django_brevo",  # Brevo
+    # --------------------------------- WAITLIST --------------------------------- #
+    "waitlist",  # Waitlist
     # ------------------------------- CONFIGURATION ------------------------------ #
     "solo",  # Django Solo
     # Custom apps
