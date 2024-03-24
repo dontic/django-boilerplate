@@ -1,5 +1,7 @@
 # django-boilerplate
 
+⚠️ UNDER CONSTRUCTION ⚠️
+
 # Introduction
 
 This is a django boilerplate code was made to help you spin up REST backends SUPER fast.
@@ -11,9 +13,11 @@ It comes with a `Dockerfile` and a sample `docker-compose.yml` so you can deploy
 It already has the following set up:
 1. API Configuration
 2. Logging
-3. Authentication
-4. Notifications
-5. Celery
+3. Celery
+4. Brevo integration (studying the posibility of Sendgrid integration as well)
+5. Authentication
+6. Notifications
+7. Waitlist
 
 # Configuration
 
