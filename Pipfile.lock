@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6f165e45e9eca0567803d440a24b7cdfa7096e2721b5020f8877a6a9a54fcb73"
+            "sha256": "8a3fca766cbc3f61ce8e024735ae9bda9302afa1ae5c6a30ae79e7798b20c95c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -26,11 +26,11 @@
         },
         "asgiref": {
             "hashes": [
-                "sha256:89b2ef2247e3b562a16eef663bc0e2e703ec6468e2fa8a5cd61cd449786d4f6e",
-                "sha256:9e0ce3aa93a819ba5b45120216b23878cf6e8525eb3848653452b4192b92afed"
+                "sha256:3e1e3ecc849832fe52ccf2cb6686b7a55f82bb1d6aee72a58826471390335e47",
+                "sha256:c343bd80a0bec947a9860adb4c432ffa7db769836c64238fc34bdc3fec84d590"
             ],
-            "markers": "python_version >= '3.7'",
-            "version": "==3.7.2"
+            "markers": "python_version >= '3.8'",
+            "version": "==3.8.1"
         },
         "billiard": {
             "hashes": [
@@ -221,11 +221,11 @@
         },
         "click-didyoumean": {
             "hashes": [
-                "sha256:a0713dc7a1de3f06bc0df5a9567ad19ead2d3d5689b434768a6145bff77c0667",
-                "sha256:f184f0d851d96b6d29297354ed981b7dd71df7ff500d82fa6d11f0856bee8035"
+                "sha256:4f82fdff0dbe64ef8ab2279bd6aa3f6a99c3b28c05aa09cbfc07c9d7fbb5a463",
+                "sha256:5c4bb6007cfea5f2fd6583a2fb6701a22a41eb98957e63d0fac41c10e7c3117c"
             ],
-            "markers": "python_full_version >= '3.6.2' and python_full_version < '4.0.0'",
-            "version": "==0.3.0"
+            "markers": "python_full_version >= '3.6.2'",
+            "version": "==0.3.1"
         },
         "click-plugins": {
             "hashes": [
@@ -381,12 +381,12 @@
         },
         "djangorestframework": {
             "hashes": [
-                "sha256:579a333e6256b09489cbe0a067e66abe55c6595d8926be6b99423786334350c8",
-                "sha256:eb63f58c9f218e1a7d064d17a70751f528ed4e1d35547fdade9aaf4cd103fd08"
+                "sha256:3ccc0475bce968608cf30d07fb17d8e52d1d7fc8bfe779c905463200750cbca6",
+                "sha256:f88fad74183dfc7144b2756d0d2ac716ea5b4c7c9840995ac3bfd8ec034333c1"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.6'",
-            "version": "==3.14.0"
+            "version": "==3.15.1"
         },
         "gunicorn": {
             "hashes": [
@@ -531,13 +531,6 @@
             ],
             "version": "==3.2.0"
         },
-        "pytz": {
-            "hashes": [
-                "sha256:2a29735ea9c18baf14b448846bde5a48030ed267578472d8955cd0e7443a9812",
-                "sha256:328171f4e3623139da4983451950b28e95ac706e13f3f2630a879749e7a8b319"
-            ],
-            "version": "==2024.1"
-        },
         "redis": {
             "hashes": [
                 "sha256:4973bae7444c0fbed64a06b87446f79361cb7e4ec1538c022d696ed7a5015580",
@@ -557,11 +550,11 @@
         },
         "requests-oauthlib": {
             "hashes": [
-                "sha256:7a3130d94a17520169e38db6c8d75f2c974643788465ecc2e4b36d288bf13033",
-                "sha256:acee623221e4a39abcbb919312c8ff04bd44e7e417087fb4bd5e2a2f53d5e79a"
+                "sha256:7dd8a5c40426b779b0868c404bdef9768deccf22749cde15852df527e6269b36",
+                "sha256:b3dffaebd884d8cd778494369603a9e7b58d29111bf6b41bdc2dcd87203af4e9"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
-            "version": "==1.4.0"
+            "markers": "python_version >= '3.4'",
+            "version": "==2.0.0"
         },
         "sendgrid": {
             "hashes": [
@@ -571,6 +564,13 @@
             "index": "pypi",
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
             "version": "==6.11.0"
+        },
+        "sib-api-v3-sdk": {
+            "hashes": [
+                "sha256:8975108c4a66ca2280532017190150f98ac826eacdda6c2f859ff104d2828266"
+            ],
+            "index": "pypi",
+            "version": "==7.6.0"
         },
         "six": {
             "hashes": [

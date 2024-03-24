@@ -22,6 +22,7 @@ whitenoise = "*"
 concurrent-log-handler = "*"
 discord-webhook = "*"
 sendgrid = "*"
+sib-api-v3-sdk = "*"
 
 [dev-packages]
 
